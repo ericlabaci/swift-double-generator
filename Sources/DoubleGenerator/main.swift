@@ -1,6 +1,7 @@
 import ArgumentParser
 import Foundation
 import SourceKittenFramework
+import Stencil
 
 struct Double: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -29,7 +30,17 @@ struct Generate: ParsableCommand {
         let data = structure.description.data(using: .utf8)
         let x = try! JSONDecoder().decode(MyStructure.self, from: data!)
 
-        x.printInformation()
+//        print(structure.description)
+
+//        x.printInformation()
+
+        let environment = Environment(loader: FileSystemLoader(paths: ["./"]))
+        do {
+            let content = try environment.renderTemplate(name: "template.stencil", context: ["files": [x]])
+            print(content)
+        } catch {
+            print(error)
+        }
     }
 }
 
@@ -38,6 +49,7 @@ struct MyStructure: Decodable {
         enum Kind: String, Decodable, UnknownCaseRepresentable {
             static var unknownCase: Kind = .unknown
 
+            case variable = "source.lang.swift.decl.var.instance"
             case instance = "source.lang.swift.decl.function.method.instance"
             case parameter = "source.lang.swift.decl.var.parameter"
             case `protocol` = "source.lang.swift.decl.protocol"
