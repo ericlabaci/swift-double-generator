@@ -1,4 +1,4 @@
 release:
-	rm -rf ./DoubleGenerator
+	rm -rf ./GeneratorDouble
 	swift build --configuration release
-	cp -f .build/release/DoubleGenerator ./
+	cp -f .build/release/DoubleGenerator ./GeneratorDouble
