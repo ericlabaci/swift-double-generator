@@ -30,14 +30,14 @@ struct Generate: ParsableCommand {
         let data = structure.description.data(using: .utf8)
         let codeStructure = try! JSONDecoder().decode(CodeStructure.self, from: data!)
 
-        let firstProtocol = codeStructure.substructures.first(where: { $0.kind == .protocol })!
-        let protocolStructure = ProtocolStructure(protocolStructure: firstProtocol)
-        let protocolStencil = ProtocolStencil(protocolStructure: protocolStructure)
+        let protocols = codeStructure.substructures.filter { $0.kind == .protocol }
+        let protocolStructures = protocols.map(ProtocolStructure.init)
+        let protocolStencil = protocolStructures.map(ProtocolStencil.init)
 
         let environment = Environment(loader: FileSystemLoader(paths: ["./Sources"]))
 
         do {
-            let content = try environment.renderTemplate(name: "template.stencil", context: ["protocol": protocolStencil])
+            let content = try environment.renderTemplate(name: "template.stencil", context: ["protocols": protocolStencil])
             print(content)
         } catch {
             print(error)

@@ -1,3 +1,4 @@
+{% for protocol in protocols %}
 {{ protocol.accessibilityTag }}final class {{ protocol.name }}Spy: {{ protocol.name }} { {% for variable in protocol.variables %} {% if variable.isGetOnly %}
 	{{ protocol.accessibilityTag }}private(set) var {{ variable.name }}Called = false
 	{{ protocol.accessibilityTag }}var {{ variable.name}}Return: {{ variable.returnType}} ={% if variable.isReturnOptional %} nil {% else %} .init() {% endif %}
@@ -22,3 +23,4 @@
 	} 
 	{% endfor %}
 }
+{% endfor %}
