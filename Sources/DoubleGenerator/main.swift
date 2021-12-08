@@ -1,6 +1,7 @@
 import ArgumentParser
 import Foundation
 import SourceKittenFramework
+import Stencil
 
 struct Double: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -29,8 +30,18 @@ struct Generate: ParsableCommand {
         let data = structure.description.data(using: .utf8)
         let codeStructure = try! JSONDecoder().decode(CodeStructure.self, from: data!)
 
-        let protocolStructure = codeStructure.substructures.first(where: { $0.kind == .protocol })!
+        let firstProtocol = codeStructure.substructures.first(where: { $0.kind == .protocol })!
+        let protocolStructure = ProtocolStructure(protocolStructure: firstProtocol)
+        let protocolStencil = ProtocolStencil(protocolStructure: protocolStructure)
 
-        print(ProtocolStructure(protocolStructure: protocolStructure))
+        let environment = Environment(loader: FileSystemLoader(paths: ["./Sources"]))
+
+        do {
+            let content = try environment.renderTemplate(name: "template.stencil", context: ["protocol": protocolStencil])
+            print(content)
+        } catch {
+            print(error)
+        }
+
     }
 }

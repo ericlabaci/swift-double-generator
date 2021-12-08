@@ -1,0 +1,15 @@
+final class {{ protocol.name }}Spy: {{ protocol.name }} { {% for function in protocol.functions %}
+	private(set) var {{ function.name }}Called = false {% if function.hasParams %}
+	private(set) var {{ function.name }}ParamsPassed: {{ function.paramsList }}? {% endif %} {% if function.hasClosure %}
+	var {{ function.name }}Completion: {{ function.closureParam.type }}? {% endif %} {% if function.hasReturn %}
+	var {{ function.name }}Return: {{ function.returnType }} ={% if function.isReturnOptional %} nil {% else %} .init() {% endif %} {% endif %}
+
+	{{ function.fullFunction }} {
+		{{ function.name }}Called = true {% if function.hasParams %}
+		{{ function.name }}ParamsPassed = {{ function.paramsInternalNameList }} {% endif %} {% if function.hasClosure %}
+		guard let completion = {{ function.name }}Completion else { return }
+		{{ function.closureParam.usualName }}(completion) {% endif %} {% if function.hasReturn %}
+		return {{ function.name }}Return {% endif %}
+	} 
+	{% endfor %}
+}

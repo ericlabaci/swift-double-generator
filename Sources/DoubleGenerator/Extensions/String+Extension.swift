@@ -10,4 +10,21 @@ extension String {
         allParams.removeLast()
         return (funcName, allParams)
     }
+
+    var removeEscapingIfNeeded: String {
+        return self.replacingOccurrences(of: "@escaping ", with: "")
+    }
+
+    var isReturnOptional: Bool {
+        guard let lastChar = self.last else {
+            return false
+        }
+        return lastChar == "?"
+    }
+
+    var isClosureParameter: Bool {
+        let regex = try! NSRegularExpression(pattern: "(.*).*->")
+        let range = NSRange(location: 0, length: self.utf16.count)
+        return regex.firstMatch(in: self, options: [], range: range) != nil
+    }
 }
