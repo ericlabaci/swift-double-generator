@@ -15,9 +15,9 @@ class ProtocolStructure {
             for substructure in substructures {
                 switch substruct.kind {
                 case .functionMethodInstance:
-                    functions.append(FunctionStructure(functionSubstructure: substruct))
+                    functions.append(FunctionStructure(functionSubstructure: substructure))
                 case .varInstance:
-                    variables.append(VariableStructure(variableStructure: substruct))
+                    variables.append(VariableStructure(variableStructure: substructure))
                 default:
                     break
                 }
