@@ -73,10 +73,6 @@ class FunctionStructure {
             self.returnType = nil
         }
     }
-
-    func fullFunction() -> String {
-        return "func \(name)(\(parameters.map { $0.getParam() }.joined(separator: ", ")))"
-    }
 }
 
 class Parameter {
@@ -88,13 +84,5 @@ class Parameter {
         self.externalName = externalName
         self.internalName = internalName
         self.type = type
-    }
-
-    func getParam() -> String {
-        if externalName == internalName {
-            return "\(externalName): \(type)"
-        } else {
-            return "\(externalName) \(internalName): \(type)"
-        }
     }
 }
