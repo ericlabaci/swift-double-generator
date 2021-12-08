@@ -12,7 +12,7 @@ class ProtocolStructure {
         var variables: [VariableStructure] = []
         var functions: [FunctionStructure] = []
         if let substructures = protocolStructure.substructures {
-            for substruct in substructures {
+            for substructure in substructures {
                 switch substruct.kind {
                 case .functionMethodInstance:
                     functions.append(FunctionStructure(functionSubstructure: substruct))
