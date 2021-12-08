@@ -8,4 +8,21 @@ enum Accessibility: String, Codable, UnknownCaseRepresentable {
     case `fileprivate` = "source.lang.swift.accessibility.fileprivate"
     case `internal` = "source.lang.swift.accessibility.internal"
     case unknown
+
+    var tag: String {
+        let value: String
+        switch self {
+        case .public:
+            value = "public"
+        case .private:
+            value = "private"
+        case .fileprivate:
+            value = "fileprivate"
+        case .internal:
+            value = ""
+        case .unknown:
+            value = ""
+        }
+        return (self != .unknown || self != .internal) ? "\(value) " : value
+    }
 }

@@ -2,11 +2,13 @@ import Foundation
 
 class ProtocolStructure {
     let name: String
+    let accessibility: Accessibility?
     let variables: [VariableStructure]
     let functions: [FunctionStructure]
 
     init(protocolStructure: Substructure) {
         self.name = protocolStructure.name ?? ""
+        self.accessibility = protocolStructure.accessibility
         var variables: [VariableStructure] = []
         var functions: [FunctionStructure] = []
         if let substructures = protocolStructure.substructures {

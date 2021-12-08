@@ -2,11 +2,15 @@ import Foundation
 
 class ProtocolStencil {
     let name: String
+    let isPublic: Bool
+    let accessibilityTag: String
     let variables: [VariableStencil]
     let functions: [FunctionStencil]
 
     init(protocolStructure: ProtocolStructure) {
         self.name = protocolStructure.name
+        self.isPublic = protocolStructure.accessibility == .public
+        self.accessibilityTag = protocolStructure.accessibility?.tag ?? ""
         self.variables = protocolStructure.variables.map(VariableStencil.init)
         self.functions = protocolStructure.functions.map(FunctionStencil.init)
     }
@@ -15,12 +19,14 @@ class ProtocolStencil {
 class VariableStencil {
     let name: String
     let returnType: String
-    let setterAccessibility: Accessibility?
+    let isReturnOptional: Bool
+    let isGetOnly: Bool
 
     init(variableStructure: VariableStructure) {
         self.name = variableStructure.name
         self.returnType = variableStructure.returnType
-        self.setterAccessibility = variableStructure.setterAccessibility
+        self.isReturnOptional = self.returnType.isReturnOptional
+        self.isGetOnly = variableStructure.setterAccessibility == nil
     }
 }
 

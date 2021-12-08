@@ -2,8 +2,8 @@ import Foundation
 
 // MARK: - ChatProviderProtocol
 
-final protocol ChatProviderProtocol {
-    var foo: String { return "" }
+public final protocol ChatProviderProtocol {
+    var foo: String { get set }
 
     func markAsFinished(with conversationId: String, completion: @escaping (Result<Void, Error>) -> Void)
     func foo(bar: String) -> Int
