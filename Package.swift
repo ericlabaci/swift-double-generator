@@ -17,7 +17,8 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SourceKittenFramework", package: "SourceKitten"),
                 .product(name: "Stencil", package: "Stencil")
-            ]
+            ],
+            resources: [.copy("Templates/template.stencil")]
         ),
         .testTarget(
             name: "DoubleGeneratorTests",

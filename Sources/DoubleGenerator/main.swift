@@ -34,7 +34,8 @@ struct GenerateDouble: ParsableCommand {
         let protocolStructures = protocols.map(ProtocolStructure.init)
         let protocolStencil = protocolStructures.map(ProtocolStencil.init)
 
-        let environment = Environment(loader: FileSystemLoader(paths: ["./Sources"]))
+        let loader = FileSystemLoader(bundle: [Bundle.module])
+        let environment = Environment(loader: loader)
 
         do {
             let content = try environment.renderTemplate(name: "template.stencil", context: ["protocols": protocolStencil])

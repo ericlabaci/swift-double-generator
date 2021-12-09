@@ -12,6 +12,7 @@ install: build
 
 uninstall:
 	rm -rf "$(bindir)/double-generator"
+	rm -rf "$(bindir)/swift-double-generator"
 
 clean:
 	rm -rf .build
