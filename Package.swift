@@ -18,7 +18,7 @@ let package = Package(
                 .product(name: "SourceKittenFramework", package: "SourceKitten"),
                 .product(name: "Stencil", package: "Stencil")
             ],
-            resources: [.copy("Templates/template.stencil")]
+            resources: [.copy("template.stencil")]
         ),
         .testTarget(
             name: "DoubleGeneratorTests",
