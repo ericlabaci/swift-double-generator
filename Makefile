@@ -9,7 +9,10 @@ install: build
 	mv .build/release/DoubleGenerator .build/release/double-generator
 	install -d "$(bindir)" "$(libdir)"
 	install ".build/release/double-generator" "$(bindir)"
-	cp -R ".build/release/DoubleGenerator_DoubleGenerator.bundle" "$(bindir)"
+	install_name_tool -change \
+		"build/release/DoubleGenerator_DoubleGenerator.bundle" \
+		"$(libdir)/DoubleGenerator_DoubleGenerator.bundle" \
+		"$(bindir)/double-generator"
 
 uninstall:
 	rm -rf "$(bindir)/double-generator"
