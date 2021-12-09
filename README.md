@@ -10,7 +10,7 @@ Written in Swift.
 
 ## Build from source
 Clone the repo and run
-`make instal`
+`make install`
 
 # Usage
 `double-generator generate-double <file_path>`
