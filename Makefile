@@ -11,7 +11,7 @@ install: build
 	install ".build/release/double-generator" "$(bindir)"
 
 uninstall:
-	rm -rf "$(bindir)/DoubleGenerator"
+	rm -rf "$(bindir)/double-generator"
 
 clean:
 	rm -rf .build
